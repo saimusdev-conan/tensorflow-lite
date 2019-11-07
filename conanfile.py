@@ -9,12 +9,9 @@ class TFLiteConan(ConanFile):
     name = "tensorflow-lite"
     version = "2.0.0"
     repo_url = "https://github.com/tensorflow/tensorflow.git"
-    #revision = "64c3d382cadf7bbe8e7e99884bede8284ff67f56"
-    revision = "v2.0.0"
 
     # Other package details
     description = "https://www.tensorflow.org/"
-    topics = ("conan", "tensorflow", "ML", "ai", "artificial", "intelligence", "artificial intelligence", "machine learning")
     url = "https://github.com/saimusdev/tflite-conan"
     homepage = "The core open source library to help you develop and train ML models"
     author = "saimusdev"
