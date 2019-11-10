@@ -1,2 +1,12 @@
 # Tensorflow repo
 /tensorflow
+
+# dependencies  source code
+absl/source/*
+eigen/source/*
+farmhash/source/*
+fft2d/source/*
+flatbuffers/source/*
+gemmlowp/source/*
+googletest/source/*
+neon_2_sse/source/*
