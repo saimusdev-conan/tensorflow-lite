@@ -1,0 +1,9 @@
+# Conan build files
+conan.lock
+conanbuildinfo.mak
+conanbuildinfo.txt
+conaninfo.txt
+graph_info.json
+
+# Tensorflow repo
+/tensorflow
