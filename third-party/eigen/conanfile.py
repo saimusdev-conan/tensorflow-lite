@@ -19,14 +19,6 @@ class EigenConan(ConanFile):
     build_subfolder = "build"
     source_subfolder = "."
 
-    def configure_cmake(self):
-        cmake = CMake(self)
-        #tools.mkdir("build")
-        cmake.definitions["BUILD_TESTING"] = False
-        cmake.configure()
-        return cmake
-
-
     def package(self):
         unsupported_folder = os.path.join(self.package_folder, "include", "eigen3", "unsupported", "Eigen")
         eigen_folder = os.path.join(self.package_folder, "include", "eigen3", "Eigen")

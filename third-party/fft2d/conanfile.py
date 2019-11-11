@@ -1,65 +1,36 @@
-import sys
-from os import getcwd
-from multiprocessing import cpu_count
-from conans import ConanFile, tools, AutoToolsBuildEnvironment
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Note: Conan is supported on a best-effort basis. Abseil doesn't use Conan
+# internally, so we won't know if it stops working. We may ask community
+# members to help us debug any problems that arise.
+
+from conans import ConanFile, CMake, tools
+from conans.errors import ConanInvalidConfiguration
+from conans.model.version import Version
 
 
-class TFLiteConan(ConanFile):
-    # Basic info
-    name = "tensorflow-lite"
-    version = "2.0.0"
-    repo_url = "https://github.com/tensorflow/tensorflow.git"
-
-    # Other package details
-    description = "https://www.tensorflow.org/"
-    url = "https://github.com/saimusdev/tflite-conan"
-    homepage = "The core open source library to help you develop and train ML models"
-    author = "saimusdev"
-    license = "Apache-2.0"
-
-    # Conan build process settings
-    exports = [ "LICENSE.md", "revision"]
+class FFT2DConan(ConanFile):
+    name = "fft2d"
+    revision = "20161228"
+    version = revision
+    #url
+    author = "ooura@kurims.kyoto-u.ac.jp"
+    homepage = "http://www.kurims.kyoto-u.ac.jp/~ooura/fft.html"
+    description = "General Purpose FFT (Fast Fourier/Cosine/Sine Transform)"
+    license = "MIT"
+    topics = ("conan", "abseil", "abseil-cpp", "google", "common-libraries")
+    exports = ["LICENSE"]
+    exports_sources = "*"
+    generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
-    options = { "shared": [True, False], "fPIC": [True, False] }
-    default_options = { "shared": True, "fPIC": True }
-    source_subfolder = "tensorflow"
-    build_subfolder = "tensorflow/lite/tools/make" # relative path
-    generators = "make"
-
-    def build_requirements(self):
-        pass
-
-    def configure(self):
-        self.repo_revision = tools.load("revision")
-
-    def config_options(self):
-        if self.settings.os == 'Windows':
-            del self.options.fPIC
-
-    def source(self):
-        git = tools.Git(folder=self.source_subfolder)
-        git.clone(self.repo_url)
-        with tools.chdir(self.source_subfolder):
-            self.run("git checkout %s" % (self.repo_revision))
 
     def build(self):
-        with tools.chdir(self.source_subfolder):
-            #with tools.chdir(self.build_subfolder):
-                #self.run("./download_dependencies.sh")
-            env_build = AutoToolsBuildEnvironment(self)
-            env_build.fpic = True
-            #env_build.libs.append("pthread")
-            env_build.defines.append("BUILD_WITH_NNAPI=false")
-            env_build.defines.append("BUILD_WITH_MMAP=false")
-            build_target = "all" # "micro"?
-            env_build.make(target="%s -f %s/Makefile -C %s" % (
-                build_target, 
-                self.build_subfolder,
-                getcwd()))
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
 
     def package(self):
-        self.copy(pattern="LICENSE", dst="licenses", src=self.source_subfolder)
-        self.copy(pattern="*.so*", dst="lib", src=self.source_subfolder, keep_path=False, symlinks=True)
+        self.copy("LICENSE", dst="licenses")
+        self.copy("*.a", dst="lib", src=".", keep_path=False)
 
-    def package_info(self):
-        self.cpp_info.libs = ["tensorflow"]
