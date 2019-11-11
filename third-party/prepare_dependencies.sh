@@ -13,3 +13,4 @@ for dependency in $(ls -1 "${build_subfolder}/downloads"); do
     mkdir -p $dependency
     cp -rv "${build_subfolder}/downloads/${dependency}"/* $dependency
 done
+rm -rf tensorflow
