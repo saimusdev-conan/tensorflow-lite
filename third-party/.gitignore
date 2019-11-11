@@ -2,11 +2,27 @@
 /tensorflow
 
 # dependencies  source code
-absl/source/*
-eigen/source/*
-farmhash/source/*
-fft2d/source/*
-flatbuffers/source/*
-gemmlowp/source/*
-googletest/source/*
-neon_2_sse/source/*
+absl/*
+!absl/conanfile.py
+
+eigen/*
+!eigen/conanfile.py
+
+farmhash/*
+!farmhash/conanfile.py
+
+fft2d/*
+!fft2d/conanfile.py
+
+flatbuffers/*
+!flatbuffers/conanfile.py
+
+gemmlowp/*
+!gemmlowp/conanfile.py
+
+googletest/*
+!googletest/conanfile.py
+
+neon_2_sse/*
+!neon_2_sse/conanfile.py
+

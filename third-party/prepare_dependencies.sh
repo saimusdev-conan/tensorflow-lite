@@ -10,6 +10,6 @@ cd tensorflow && git checkout $revision && cd ..
 source "${build_subfolder}/download_dependencies.sh"
 popd >/dev/null
 for dependency in $(ls -1 "${build_subfolder}/downloads"); do
-    mkdir -p $dependency/source
-    cp -rv "${build_subfolder}/downloads/${dependency}"/* $dependency/source
+    mkdir -p $dependency
+    cp -rv "${build_subfolder}/downloads/${dependency}"/* $dependency
 done
