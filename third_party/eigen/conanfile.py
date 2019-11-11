@@ -1,4 +1,4 @@
-from conans import ConanFile, CMake, tools
+from conans import ConanFile
 import os
 
 class EigenConan(ConanFile):
@@ -18,6 +18,8 @@ class EigenConan(ConanFile):
     generators = "cmake"
     build_subfolder = "build"
     source_subfolder = "."
+    options = {"header_only": [True, False]}
+    default_options = {"header_only": True}
 
     def package(self):
         unsupported_folder = os.path.join(self.package_folder, "include", "eigen3", "unsupported", "Eigen")

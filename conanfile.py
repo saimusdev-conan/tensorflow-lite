@@ -7,7 +7,8 @@ from conans import ConanFile, tools, AutoToolsBuildEnvironment
 class TFLiteConan(ConanFile):
     # Basic info
     name = "tensorflow-lite"
-    version = "2.0.0"
+    revision = "fd635616f65b492e9c441be5dca6427b1531955a"
+    version = revision[:7]
     repo_url = "https://github.com/tensorflow/tensorflow.git"
 
     # Other package details
@@ -51,7 +52,7 @@ class TFLiteConan(ConanFile):
             #env_build.libs.append("pthread")
             env_build.defines.append("BUILD_WITH_NNAPI=false")
             env_build.defines.append("BUILD_WITH_MMAP=false")
-            build_target = "all" # "micro"?
+            build_target = "micro"
             env_build.make(target="%s -f %s/Makefile -C %s" % (
                 build_target, 
                 self.build_subfolder,

@@ -17,12 +17,14 @@ class FarmHashConan(ConanFile):
     exports_sources = "*" # Almost everything is needed
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
+    options = {"static": [True, False], "shared": [True, False], "fPIC": [True, False]}
+    default_options = {"static": True, "shared": True, "fPIC": True}
 
     def build(self):
         autotools = AutoToolsBuildEnvironment(self)
         tools.replace_in_file("configure", "am__api_version='1.14'", "am__api_version='1.15'") # to avoid incompatibility issue
         autotools.configure()
-        autotools.make(target="all check")
+        autotools.make(target="all")
         autotools.install()
 
     def package(self):

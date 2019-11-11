@@ -24,6 +24,8 @@ class AbseilConan(ConanFile):
     exports_sources = ["CMakeLists.txt", "CMake/*", "absl/*"]
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
+    options = {"static": [True, False], "fPIC": [True, False]}
+    default_options = {"static": True, "fPIC": True}
 
     def configure(self):
         if self.settings.os == "Windows" and \
@@ -41,9 +43,7 @@ class AbseilConan(ConanFile):
     def package(self):
         self.copy("LICENSE", dst="licenses")
         self.copy("*.h", dst="include", src=".")
-        self.copy("*.inc", dst="include", src=".")
         self.copy("*.a", dst="lib", src=".", keep_path=False)
-        self.copy("*.lib", dst="lib", src=".", keep_path=False)
 
     def package_info(self):
         if self.settings.os == "Linux":
