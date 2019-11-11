@@ -12,9 +12,11 @@ from conans.model.version import Version
 
 class AbseilConan(ConanFile):
     name = "abseil"
-    url = "https://github.com/abseil/abseil-cpp"
-    homepage = url
+    revision = "43ef2148c0936ebf7cb4be6b19927a9d9d145b8f"
+    version = revision[:7]
+    #url
     author = "Abseil <abseil-io@googlegroups.com>"
+    homepage = "https://github.com/abseil/abseil-cpp"
     description = "Abseil Common Libraries (C++) from Google"
     license = "Apache-2.0"
     topics = ("conan", "abseil", "abseil-cpp", "google", "common-libraries")
@@ -30,7 +32,7 @@ class AbseilConan(ConanFile):
             raise ConanInvalidConfiguration("Abseil does not support MSVC < 14")
 
     def build(self):
-        tools.replace_in_file("CMakeLists.txt", "project(absl)", "project(absl)\ninclude(conanbuildinfo.cmake)\nconan_basic_setup()")
+        tools.replace_in_file("CMakeLists.txt", "project(absl CXX)", "project(absl CXX)\ninclude(conanbuildinfo.cmake)\nconan_basic_setup()")
         cmake = CMake(self)
         cmake.definitions["BUILD_TESTING"] = False
         cmake.configure()
