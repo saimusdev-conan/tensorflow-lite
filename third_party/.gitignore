@@ -13,6 +13,7 @@ farmhash/*
 
 fft2d/*
 !fft2d/conanfile.py
+!fft2d/CMakeLists.txt
 
 flatbuffers/*
 !flatbuffers/conanfile.py
